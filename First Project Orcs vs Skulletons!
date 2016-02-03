@@ -1,0 +1,103 @@
+//First c++ project with no help!
+//figuring out order what format I want for typing.  Visual studios is 'forcing' me to do a certain style.
+//Skulletons is my favorite way of saying skeletons.
+//orcs will generally win at a 1vs3 ratio, does use print statement to account for only 1 dying.
+
+#include <iostream>
+#include <string>
+#include <random>
+#include <ctime>
+#include <Windows.h>
+
+using namespace std;
+
+int main()
+{	
+	//gets a random number
+	mt19937 random(time(0));
+	uniform_int_distribution<int> orcRoll(1,21);
+	uniform_int_distribution<int> skullRoll(1, 21);
+
+	//player variables
+	int orcs;
+	int skulletons;
+	int orcHealth = 17;
+	int skullHealth = 6;
+	int orcsDead = 0;
+	int skullsDead = 0;
+	int sameTime = 0;
+
+	// gets number of skulletons and orcs
+	cout << "***Battle of Orcs and Skulletons!!!***\n\n";
+	
+	cout << "How many orcs will be in this battle?\n";
+	cin >> orcs;
+	cout << "How many Skulletons?  Remember, Skulletons are Fragileh!\n";
+	cin >> skulletons;
+
+	cout << "\n*Battle sounds*\n";
+	Sleep(700); cout << "."; 
+	Sleep(700); cout << ".";
+	Sleep(700); cout << ".";
+	Sleep(700); cout << endl;
+
+	// while loop that randomly kills of orcs and skulletons
+	// and subtracts their number.  Also kills 1 of each if 21 is rolled.
+	while(orcs || skulletons > 0)
+	{
+		int orcAttack = orcRoll(random);
+		int skullAttack = skullRoll(random);
+
+		if (orcs == 0 || skulletons == 0)
+			{
+				break;
+			}
+
+		if (orcAttack > skullHealth)
+			{
+				skulletons -= 1;
+				skullsDead += 1;
+				if (orcAttack == 21)
+					if (orcs == 0 || skulletons == 0)
+					{
+					break;
+					}
+					else
+					{
+					orcs -= 1; orcsDead += 1; sameTime += 1;
+					}
+			}
+
+		if (skullAttack > orcHealth)
+			{
+				orcs -= 1; orcsDead += 1;
+				if (skullAttack == 21)
+					if (orcs == 0 || skulletons == 0)
+					{
+					break;
+					}
+					else
+					{
+					skulletons -= 1; skullsDead += 1; sameTime += 1;
+					}
+			}
+
+	}
+
+////The ending!
+	cout << "It's overrr!\n\n";
+	if (orcs > skulletons)
+		{
+		cout << "The Orcs are victorious!  War cries fill the air!\n\n";
+		}
+	else
+		{
+		cout << "The dry bones have won the day!  Rattle sounds shake the air!\n\n";
+		}
+
+	cout << orcsDead << " Orcs died gloriously, " << orcs << " lived!\n\n";
+	cout << skullsDead << " Skulletons crumbled, " << skulletons << " still 'live'\n\n";
+	cout << sameTime << " Orcs and Skulletons struck each other down at the same time \n\n";
+
+	system("pause");
+}
