@@ -1,0 +1,10 @@
+/// Takes a long list, which of the first item is the length of the list, and converts all numbers to celcius.
+
+x = []
+count = input().split()
+for i in range(int(count[0])):
+    a = int(count[i+1])
+    a = int(round(float((a) - 32) * (5/9)))
+    x.append(str(a))
+
+print(" ".join(x))
